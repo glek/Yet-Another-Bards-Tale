@@ -1,0 +1,9 @@
+The GameEventListener should pass an IllegalStateException or other
+RuntimeError (must be a checked exception).
+
+Events should only be added to the command history *after* the lower classes in
+the 'event directed acyclic graph' have successfully processed further
+generated events.
+
+The controller must handle exceptions passed up, the viewer obvious displays
+them.

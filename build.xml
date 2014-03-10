@@ -1,0 +1,65 @@
+<project name="Yet Another Bard Tale">
+	<property name="main.class" value="Game" />
+	<property name="bin.dir" location="bin" />
+	<property name="src.dir" location="src" />
+	<property name="doc.dir" location="doc" />
+  <property name="javadoc.dir" location="${doc.dir}/javadoc" />
+	<property name="package.name" value="yetanotherbardtale" />
+
+
+	<target name="clean">
+		<delete dir="${bin.dir}/${package.name}" />
+		<delete dir="${javadoc.dir}" />
+		<delete file="${jar.file}" />
+	</target>
+
+	<target name="realclean" depends="clean">
+		<delete dir="${bin.dir}" />
+	</target>
+
+	<target name="build">
+		<mkdir dir="${bin.dir}" />
+		<javac debug="yes"
+			   includeantruntime="false"
+			   srcdir="${src.dir}"
+			   destdir="${bin.dir}">
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+	</target>
+
+	<target name="javadoc">
+		<mkdir dir="${doc.dir}" />
+		<mkdir dir="${javadoc.dir}" />
+		<javadoc
+			destdir="${javadoc.dir}"
+			doclet=""
+			private="true">
+			<fileset dir="${src.dir}" includes="**/*.java" />
+			<!-- classpath="/opt/java/lib/tools.jar:/usr/share/java"-->
+			<doclet name="org.umlgraph.doclet.UmlGraphDoc" path="/usr/share/java">
+				<param name="-attributes" />
+				<param name="-operations" />
+				<param name="-qualify" />
+				<param name="-types" />
+				<param name="-visibility" />
+			</doclet>
+			<!-- Modify according to OS. The example below is for Arch Linux
+				 with the JDK package from the AUR and the class files for the
+                 doclet under /usr/share/java/org/umlgraph/doclet.
+			<classpath>
+				<pathelement location="/opt/java/lib/tools.jar" />
+				<pathelement path="/usr/share/java" />
+			</classpath>
+			-->
+		</javadoc>
+	</target>
+
+	<target name="run" depends="build">
+		<java classname="${package.name}.${main.class}">
+			<classpath>
+				<pathelement path="${classpath}" />
+				<pathelement path="${bin.dir}" />
+			</classpath>
+		</java>
+	</target>
+</project>

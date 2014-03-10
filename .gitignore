@@ -1,0 +1,15 @@
+*.class
+*.jar
+*.war
+*.ear
+.*.swo
+.*.swp
+
+.classpath
+.project
+.settings
+bin/
+doc/javadoc
+/dist/
+src/normalize.sh
+src/JSON-java
